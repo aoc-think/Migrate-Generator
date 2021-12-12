@@ -6,13 +6,14 @@
       public function up(){
          $this->forge->addField([
       <?php foreach($v as $r){
-      $tp=explode('(',str_replace(')','',$r->Type));
+      $tp=explode(' ',str_replace('(',' ',str_replace(')','',$r->Type)));
       $key=($r->Key=='PRI')?$r->Field:$key;
 
       echo "\t\t'".$r->Field."'\t=> [\n".
       "\t\t\t'type'\t=> '".strtoupper($tp[0])."',".
       ((isset($tp[1]))?"\n\t\t\t'constraint'\t=> '".$tp[1]."',":null).
-      (($r->Extra=='auto_increment')?"\n\t\t\t'unsigned'\t=> TRUE,\n\t\t\t'auto_increment'\t=> TRUE,":null).
+      ((isset($tp[2]))?"\n\t\t\t'unsigned'\t=> TRUE,":null).
+      (($r->Extra=='auto_increment')?"\n\t\t\t'auto_increment'\t=> TRUE,":null).
       (($r->Null!='NO')?"\n\t\t\t'null'\t=> TRUE,":null).
       (($r->Default!='')?"\n\t\t\t'default'\t=> '".$r->Default."',":null).
       "\n\t\t],\n";
