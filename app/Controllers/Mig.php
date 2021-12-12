@@ -12,6 +12,18 @@ class Mig extends BaseController{
       }
       return $this->tm->vw('temp','mig',$dt);
    }
+
+   function generate($tbl=null){
+      if($tbl!=null){
+         $mig=$this->request->getPost('txt');
+         $cls=ucfirst(str_replace('_','',$tbl));
+         $txt="<?php \nnamespace App\Database\Migrations;".
+         "\nuse CodeIgniter\Database\Migration;".
+         "\n\nclass $cls extends Migration{\n".$mig."\n}";
+
+         if(file_put_contents(APPPATH.'Database/Migrations/'.date('Y-m-d-His').'_'.$cls.'.php',$txt)){echo "Y";}
+      }
+   }
 }
 
 ?>
