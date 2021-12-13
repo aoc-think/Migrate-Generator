@@ -11,7 +11,7 @@
 
       echo "\t\t'".$r->Field."'\t=> [\n".
       "\t\t\t'type'\t=> '".strtoupper($tp[0])."',".
-      ((isset($tp[1]))?"\n\t\t\t'constraint'\t=> '".$tp[1]."',":null).
+      ((isset($tp[1]))?"\n\t\t\t'constraint'\t=> ".((strtoupper($tp[0])=='ENUM')?"[".$tp[1]."]":"'".$tp[1]."'").",":null).
       ((isset($tp[2]))?"\n\t\t\t'unsigned'\t=> TRUE,":null).
       (($r->Extra=='auto_increment')?"\n\t\t\t'auto_increment'\t=> TRUE,":null).
       (($r->Null!='NO')?"\n\t\t\t'null'\t=> TRUE,":null).
